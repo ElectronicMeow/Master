@@ -7,6 +7,6 @@
 
 #include "http/mongoose.h"
 
-int init_router(struct mg_mgr* mgr);
+int init_router(struct mg_mgr* mgr, const char* addr);
 
 #endif //MEOWMASTER_INITIALIZATION_H
