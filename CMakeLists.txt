@@ -1,7 +1,20 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(MeowMaster LANGUAGES C)
+set(CMAKE_MODULE_PATH
+        ${CMAKE_SOURCE_DIR}/cmake
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake
+        ${CMAKE_MODULE_PATH}
+        ${ECM_MODULE_PATH})
 
-add_subdirectory(extern/CryptoUtils)
+project(MeowMaster LANGUAGES CXX)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(QT_MIN_VERSION 5.6.0)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Network Sql)
+
+set(QT_LIBRARIES Qt5::Core Qt5::Network Qt5::Sql)
+
+add_definitions(${QT_DEFINITIONS})
 
 add_subdirectory(src)
