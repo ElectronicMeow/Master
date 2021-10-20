@@ -1,0 +1,3 @@
+[submodule "3rdparty/qtpromise"]
+	path = 3rdparty/qtpromise
+	url = https://github.com/simonbrunel/qtpromise.git
