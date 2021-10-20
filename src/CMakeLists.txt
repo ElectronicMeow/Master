@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH
         ${ECM_MODULE_PATH})
 
 set(INITIALIZATIONS_SRCS
-        initializations/logger.h)
+        initializations/logger.h initializations/server.h)
 
 set(HTTP_SRCS
         http/middleware/auth.cpp
@@ -38,7 +38,8 @@ set(HTTP_SRCS
         http/httpServer.h)
 
 set(SERVICES_SRCS
-        )
+        services/handler.cpp
+        services/handler.h)
 
 set(SRCS
         ${INITIALIZATIONS_SRCS}

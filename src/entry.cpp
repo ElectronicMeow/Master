@@ -5,17 +5,21 @@
 #include <QCoreApplication>
 #include <QMessageLogger>
 #include "initializations/logger.h"
+#include "initializations/server.h"
 
 
 int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
     initLogger();
 
-//  qDebug("This is a debug message!");
-    qInfo("Welcome to Electronic Meow Project!");
-    qWarning("This Server is Master Key Server; Booting Server...");
+    qInfo("-*- Welcome to Electronic Meow Project! -*-");
+    qWarning("This Server is Master Key Server. deploy it in a secure environment.");
+    qInfo("Booting Server...");
 
-    /// server initializations
+    /// Server Initializations
+    auto server = initServer();
+
+    server->listen();
 
     return QCoreApplication::exec();
 }
