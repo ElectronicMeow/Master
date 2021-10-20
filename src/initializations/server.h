@@ -38,7 +38,7 @@ HttpServer *initServer() {
     QSettings settings(config_file, QSettings::IniFormat);
     settings.beginGroup("Server");
     auto address = settings.value("Address", "127.0.0.1").toString();
-    auto port = settings.value("port", 7200).toInt();
+    auto port = settings.value("Port", 7200).toInt();
     settings.endGroup();
     settings.beginGroup("Spec");
 
