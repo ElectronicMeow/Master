@@ -17,4 +17,9 @@ set(QT_LIBRARIES Qt5::Core Qt5::Network Qt5::Sql)
 
 add_definitions(${QT_DEFINITIONS})
 
+find_package(ZLIB)
+
+add_subdirectory(3rdparty/qtpromise)
+add_subdirectory(src/utils)
+
 add_subdirectory(src)

@@ -8,12 +8,51 @@ set(CMAKE_MODULE_PATH
         ${CMAKE_MODULE_PATH}
         ${ECM_MODULE_PATH})
 
-set(SRCS entry.cpp)
+set(INITIALIZATIONS_SRCS
+        initializations/logger.h)
+
+set(HTTP_SRCS
+        http/middleware/auth.cpp
+        http/middleware/CORS.cpp
+        http/middleware/getArray.cpp
+        http/middleware/getObject.cpp
+        http/middleware/verifyJson.cpp
+        http/httpData.h
+        http/httpServer.cpp
+        http/middleware.h
+        http/httpResponse.h
+        http/httpServerConfig.h
+        http/util.cpp
+        http/util.h
+        http/httpConnection.cpp
+        http/httpResponse.cpp
+        http/httpRequestRouter.cpp
+        http/httpRequestHandler.h
+        http/httpRequest.h
+        http/httpCookie.h
+        http/const.h
+        http/httpRequest.cpp
+        http/httpData.cpp
+        http/httpRequestRouter.h
+        http/httpConnection.h
+        http/httpServer.h)
+
+set(SERVICES_SRCS
+        )
+
+set(SRCS
+        ${INITIALIZATIONS_SRCS}
+        ${HTTP_SRCS}
+        ${SERVICES_SRCS}
+        entry.cpp)
 
 add_executable(${PROJECT_NAME} ${SRCS})
 
 target_link_libraries(${PROJECT_NAME}
-        ${QT_LIBRARIES})
+        ${QT_LIBRARIES}
+        ZLIB::ZLIB
+        MeowCryptoUtils
+        qtpromise)
 
 set_target_properties(${PROJECT_NAME}
         PROPERTIES
