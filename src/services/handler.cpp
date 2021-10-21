@@ -114,12 +114,12 @@ HttpPromise MainHandler::handleTransformToSamePk(HttpDataPtr data) {
 
 HttpPromise MainHandler::handleTransformBack(HttpDataPtr data) {
     if (data->request->mimeType().compare("application/json", Qt::CaseInsensitive) != 0) {
-        qWarning("Incorrect data type in handleTransformToSamePk.");
+        qWarning("Incorrect data type in handleTransformBack.");
         throw HttpException(HttpStatus::BadRequest, "Request body content type must be application/json");
     }
     QJsonDocument jsonDocument = data->request->parseJsonBody();
     if (jsonDocument.isNull()) {
-        qWarning("Incorrect data format in handleTransformToSamePk.");
+        qWarning("Incorrect data format in handleTransformBack.");
         throw HttpException(HttpStatus::BadRequest, "Invalid JSON body");
     }
 

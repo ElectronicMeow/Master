@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QFile>
 #include <QFileInfo>
+#include <QNetworkAccessManager>
 #include "services/handler.h"
 #include "utils/crypto_utils.h"
 
@@ -22,7 +23,7 @@ HttpServer *initServer() {
     };
     QString config_file;
     bool ok = false;
-    for (auto &i : CONFIG_FILE_PATH) {
+    for (auto &i: CONFIG_FILE_PATH) {
         config_file = i + "meow_master.conf";
         if (QFile::exists(config_file)) {
             ok = true;
@@ -46,12 +47,26 @@ HttpServer *initServer() {
     QString spec_Q(settings.value("Q", "0").toString());
 
     if (spec_P == "0" or spec_Q == "0") {
-        qWarning("No specs found in Master's configuration file! using random generated specs, it may takes a long time...");
+        qWarning(
+                "No specs found in Master's configuration file! using random generated specs, it may takes a long time...");
         MeowCryptoUtils::specGen(spec_P, spec_Q);
         qInfo("Spec generated.");
         qInfo("spec_P = %s", spec_P.toStdString().c_str());
         qInfo("spec_Q = %s", spec_Q.toStdString().c_str());
     }
+    settings.endGroup();
+
+    settings.beginGroup("Connection");
+
+    auto ccAddress = settings.value("ComputingCenter").toString();
+
+    QNetworkAccessManager manager;
+    QNetworkRequest req;
+    req.setUrl(ccAddress + "/register-master");
+    req.setRawHeader("Authorization", "Bearer SAMPLE-TOKEN"); // TODO: changes it.
+    manager.post(req,
+                 QString(R"({"data":{"url":"%1"}})").arg(address + ":" + QString::number(port)).toLocal8Bit());
+
     settings.endGroup();
 
     auto server_config = HttpServerConfig();
